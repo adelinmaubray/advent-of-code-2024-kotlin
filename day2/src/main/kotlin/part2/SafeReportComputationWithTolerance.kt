@@ -1,8 +1,8 @@
 package part2
 
-import Report
-import checkIncreasingOrDecreasing
-import checkRange
+import common.Report
+import common.checkIncreasingOrDecreasing
+import common.checkRange
 
 /**
  * Increase a compter when
@@ -34,7 +34,7 @@ private fun checkWithRemoval(report: Report): Boolean {
 //		val levels = report.levels.toMutableList()
 //		levels.removeAt(i)
 //		println("trying removal - $levels")
-//		if (checkIncreasingOrDecreasing(levels) && checkRange(levels)) {
+//		if (common.checkIncreasingOrDecreasing(levels) && common.checkRange(levels)) {
 //			println("true")
 //			numberOfTolerance++
 //		}

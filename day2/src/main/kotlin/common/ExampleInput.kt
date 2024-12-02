@@ -1,3 +1,5 @@
+package common
+
 val exampleInputs = listOf(
 	listOf(7, 6, 4, 2, 1),
 	listOf(1, 2, 7, 8, 9),

@@ -1,3 +1,5 @@
+package common
+
 @ConsistentCopyVisibility
 data class Report private constructor(val levels: List<Int>) {
 	

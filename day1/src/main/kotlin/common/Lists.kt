@@ -1,3 +1,5 @@
+package common
+
 @ConsistentCopyVisibility
 data class Lists private constructor(val leftList: List<Int>,
 									 val rightList: List<Int>) {

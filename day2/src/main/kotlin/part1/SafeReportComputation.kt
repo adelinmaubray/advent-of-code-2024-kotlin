@@ -1,8 +1,8 @@
 package part1
 
-import Report
-import checkIncreasingOrDecreasing
-import checkRange
+import common.Report
+import common.checkIncreasingOrDecreasing
+import common.checkRange
 
 /**
  * Increase a compter when

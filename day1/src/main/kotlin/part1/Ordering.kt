@@ -1,6 +1,6 @@
 package part1
 
-import Lists
+import common.Lists
 
 fun orderLists(inputs: Lists): Lists {
 	return Lists.create(

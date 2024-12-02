@@ -1,6 +1,6 @@
 package part2
 
-import Lists
+import common.Lists
 
 fun computeSimilarityScore(input: Lists): Int {
 	

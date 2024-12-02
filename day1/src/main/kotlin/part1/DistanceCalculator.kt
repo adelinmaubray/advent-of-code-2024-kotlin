@@ -1,6 +1,6 @@
 package part1
 
-import Lists
+import common.Lists
 import kotlin.math.abs
 
 fun computeDistance(sortedLists: Lists): Int {
