@@ -3,8 +3,6 @@ package part1
 import Lists
 import list1
 import list2
-import part1.utils.computeDistance
-import part1.utils.orderLists
 
 fun main(args: Array<String>) {
 	

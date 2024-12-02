@@ -3,7 +3,6 @@ package part2
 import Lists
 import list1
 import list2
-import part2.utils.computeSimilarityScore
 
 fun main() {
 	// Get the inputs

@@ -1,4 +1,4 @@
-package part1.utils
+package part1
 
 import Lists
 
