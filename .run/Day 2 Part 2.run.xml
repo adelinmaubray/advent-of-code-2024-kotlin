@@ -3,6 +3,7 @@
 		<option name="MAIN_CLASS_NAME" value="part2.MainKt"/>
 		<module name="day2"/>
 		<shortenClasspath name="NONE"/>
+		<option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/day2"/>
 		<method v="2">
 			<option name="Make" enabled="true"/>
 		</method>
