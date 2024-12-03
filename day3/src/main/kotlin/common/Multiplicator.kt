@@ -1,4 +1,4 @@
-package part1
+package common
 
 fun computeMultiplication(multiplicatorPairs: List<Pair<Int, Int>>): Int {
 	

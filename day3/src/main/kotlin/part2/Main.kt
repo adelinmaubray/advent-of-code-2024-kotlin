@@ -1,5 +1,20 @@
 package part2
 
+import common.computeMultiplication
+import common.extractMultiplicatorPair
+import common.readInput
+
 fun main() {
-	println("Day 3 Part 2")
+	
+	// Get the puzzle input
+//	val input = exampleInput
+	val input = readInput()
+	
+	// Extract operation
+	val multiplicatorPair = extractMultiplicatorPair(input, true)
+	
+	// Multiple result
+	val res = computeMultiplication(multiplicatorPair)
+	
+	println(res)
 }

@@ -1,5 +1,7 @@
 package part1
 
+import common.computeMultiplication
+import common.extractMultiplicatorPair
 import common.readInput
 
 fun main() {
