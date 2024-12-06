@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+	<configuration default="false" name="Day 6 Part 1" type="JetRunConfigurationType">
+		<option name="MAIN_CLASS_NAME" value="part1.MainKt"/>
+		<module name="day6"/>
+		<shortenClasspath name="NONE"/>
+		<option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/day6"/>
+		<method v="2">
+			<option name="Make" enabled="true"/>
+		</method>
+	</configuration>
+</component>
