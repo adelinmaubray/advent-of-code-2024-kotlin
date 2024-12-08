@@ -11,3 +11,8 @@ fun northerAntiNode(antenna: Pair<Int, Int>, difference: Pair<Int, Int>): Pair<I
 fun southernAntiNode(antenna: Pair<Int, Int>, difference: Pair<Int, Int>): Pair<Int, Int> {
 	return antenna.first + difference.first to antenna.second + difference.second
 }
+
+fun isInBound(antiNode: Pair<Int, Int>, rowMaxSize: Int, colMaxSize: Int): Boolean {
+	return antiNode.first in 0..rowMaxSize
+		&& antiNode.second in 0..colMaxSize
+}

@@ -1,4 +1,6 @@
-package common
+package part1
+
+import common.*
 
 fun getAntiNodesForFrequency(frequency: Char, areaMap: List<List<Char>>): List<Pair<Int, Int>> {
 	
@@ -9,21 +11,10 @@ fun getAntiNodesForFrequency(frequency: Char, areaMap: List<List<Char>>): List<P
 	val computedAntiNodes = computeAntiNode(antennasLocations)
 	
 	// Check in the map
-	// Check not occupied by another antenna
 	return checkAntiNode(computedAntiNodes, areaMap)
 }
 
-private fun getAntennaLocation(frequency: Char, areaMap: List<List<Char>>): List<Pair<Int, Int>> {
-	val frequencyLocations = mutableListOf<Pair<Int, Int>>()
-	areaMap.forEachIndexed { rowIndex, row ->
-		row.forEachIndexed { colIndex, location ->
-			if (location == frequency) frequencyLocations.add(rowIndex to colIndex)
-		}
-	}
-	return frequencyLocations
-}
-
-fun computeAntiNode(antennas: List<Pair<Int, Int>>): Set<Pair<Int, Int>> {
+private fun computeAntiNode(antennas: List<Pair<Int, Int>>): Set<Pair<Int, Int>> {
 	
 	val antiNode = mutableSetOf<Pair<Int, Int>>()
 	antennas.forEachIndexed { firstIndex, _ ->
@@ -36,11 +27,8 @@ fun computeAntiNode(antennas: List<Pair<Int, Int>>): Set<Pair<Int, Int>> {
 	return antiNode
 }
 
-fun checkAntiNode(antiNodeToChecks: Set<Pair<Int, Int>>, areaMap: List<List<Char>>): List<Pair<Int, Int>> {
+private fun checkAntiNode(antiNodeToChecks: Set<Pair<Int, Int>>, areaMap: List<List<Char>>): List<Pair<Int, Int>> {
 	val rowMaxSize = areaMap.lastIndex
 	val colMaxSize = areaMap[0].lastIndex
-	return antiNodeToChecks.filter { antiNode ->
-		antiNode.first in 0..rowMaxSize
-			&& antiNode.second in 0..colMaxSize
-	}
+	return antiNodeToChecks.filter { antiNode -> isInBound(antiNode, rowMaxSize, colMaxSize) }
 }

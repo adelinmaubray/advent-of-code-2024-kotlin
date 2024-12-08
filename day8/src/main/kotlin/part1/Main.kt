@@ -1,7 +1,5 @@
 package part1
 
-import common.foundFrequencies
-import common.getAntiNodesForFrequency
 import common.parseInput
 
 fun main() {
