@@ -6,7 +6,8 @@ import common.extractInput
 fun main() {
 	
 	// Extract matrix
-	val input = extractInput("src/main/resources/examples")
+//	val input = extractInput("example.txt")
+	val input = extractInput("input.txt")
 	
 	// Count number of XMAS
 	val count = countOccurrence(input)
