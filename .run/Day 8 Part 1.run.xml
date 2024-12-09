@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+	<configuration default="false" name="Day 8 Part 1" type="JetRunConfigurationType">
+		<option name="ALTERNATIVE_JRE_PATH" value="azul-21"/>
+		<option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true"/>
+		<option name="MAIN_CLASS_NAME" value="part1.MainKt"/>
+		<module name="day8"/>
+		<shortenClasspath name="NONE"/>
+		<option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/day8"/>
+		<method v="2">
+			<option name="Make" enabled="true"/>
+		</method>
+	</configuration>
+</component>
