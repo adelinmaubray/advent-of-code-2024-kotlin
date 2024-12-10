@@ -1,17 +1,9 @@
 package common
 
-fun computeScores(heads: List<Pair<Int, Int>>, hikingMap: List<List<Int>>): List<Int> {
+fun computeNextPositions(currentPosition: Pair<Int, Int>, hikingMap: List<List<Int>>): List<Pair<Int, Int>> {
 	
-	return heads.map { head ->
-		getNextPositions(head, hikingMap).size
-	}
-}
-
-private fun getNextPositions(currentPosition: Pair<Int, Int>, hikingMap: List<List<Int>>): List<Pair<Int, Int>> {
-	
-	val maxAltitudePoint = mutableSetOf<Pair<Int, Int>>()
-	val nextAltitude = hikingMap[currentPosition.first][currentPosition.second] + 1
 	val nextPositions = mutableListOf<Pair<Int, Int>>()
+	val nextAltitude = hikingMap[currentPosition.first][currentPosition.second] + 1
 	
 	// upper position
 	try {
@@ -39,13 +31,5 @@ private fun getNextPositions(currentPosition: Pair<Int, Int>, hikingMap: List<Li
 	} catch (_: IndexOutOfBoundsException) {
 	}
 	
-	nextPositions.forEach { newPosition ->
-		if (hikingMap[newPosition.first][newPosition.second] == 9) {
-			maxAltitudePoint.add(newPosition)
-		} else {
-			maxAltitudePoint.addAll(getNextPositions(newPosition, hikingMap))
-		}
-	}
-	
-	return maxAltitudePoint.toList()
+	return nextPositions
 }
