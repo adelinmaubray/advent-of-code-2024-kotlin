@@ -1,11 +1,14 @@
-package common
+package part1
 
-fun computeBlinks(initialStones: List<Int>, numberOfIteration: Int = 25): Int {
+import common.computeNewStone
+
+fun computeBlinks(initialStones: List<Int>): Int {
 	
 	var currentStones = initialStones.map { it.toLong() }
 	var newStones = mutableListOf<Long>()
 	
-	(1..numberOfIteration).forEach { _ ->
+	val numberOfIterations = 25
+	(1..numberOfIterations).forEach { _ ->
 		
 		currentStones.forEach { stone ->
 			newStones.addAll(computeNewStone(stone))
