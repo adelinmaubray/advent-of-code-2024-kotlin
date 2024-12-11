@@ -1,7 +1,6 @@
 <component name="ProjectRunConfigurationManager">
 	<configuration default="false" name="Day 8 Part 2" type="JetRunConfigurationType">
 		<option name="ALTERNATIVE_JRE_PATH" value="azul-21"/>
-		<option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true"/>
 		<option name="MAIN_CLASS_NAME" value="part2.MainKt"/>
 		<module name="day8"/>
 		<shortenClasspath name="NONE"/>
