@@ -1,6 +1,7 @@
-package common
+package part1
 
 import com.google.common.collect.Sets
+import common.Equation
 import org.mariuszgromada.math.mxparser.Expression
 
 fun computeEquations(equations: List<Equation>): Double {
