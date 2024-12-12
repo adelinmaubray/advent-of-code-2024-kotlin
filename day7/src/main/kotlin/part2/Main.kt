@@ -8,8 +8,8 @@ fun main() {
 	License.iConfirmNonCommercialUse("Adelin Rommes")
 	
 	// Parse input
-	val equations = parseInput("example.txt")
-//	val equations = parseInput("puzzle_input.txt")
+//	val equations = parseInput("example.txt")
+	val equations = parseInput("puzzle_input.txt")
 	
 	// Find the resolvable equation
 	val sumOfPossibleEquations = computeEquations(equations)

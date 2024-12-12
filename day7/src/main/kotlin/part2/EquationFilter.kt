@@ -18,36 +18,21 @@ fun computeEquations(equations: List<Equation>): Double {
 			}
 		)
 		
-		val numbersToUse = numbers.toMutableList()
 		combinaisons.forEach { operators ->
 			
-			var tempCalculationResult = 0L
-			var indexToReduce = 0
-			numbers.forEachIndexed { index, number ->
-				
-				// TODO change last index concatenate
-				val expression = if (index == numbersToUse.lastIndex) "$number"
-				else {
-					// TODO rework on this operator
-					if (operators[index - 1] == "||") {
-						numbersToUse[index - indexToReduce] =
-							"${numbersToUse[index - indexToReduce]}${numbersToUse[index - indexToReduce + 1]}".toLong()
-						"$tempCalculationResult${operators[index - 1]}${numbersToUse[index - indexToReduce]}"
-							.also {
-								println("index changed")
-								indexToReduce--
-							}
-					} else {
-						"$tempCalculationResult${operators[index - 1]}${numbersToUse[index - indexToReduce]}"
-					}
+			var tempCalculationResult = numbers[0]
+			
+			(0 until numbers.lastIndex).forEach { index ->
+				val operator = operators[index]
+				if (operator == "||") {
+					tempCalculationResult = "$tempCalculationResult${numbers[index + 1]}".toLong()
+				} else {
+					val expression = "$tempCalculationResult$operator${numbers[index + 1]}"
+					tempCalculationResult = Expression(expression).calculate().toLong()
 				}
-				
-				println(expression)
-				tempCalculationResult = Expression(expression).calculate().toLong()
 			}
 			
 			if (tempCalculationResult == result) {
-				println("FOUND!")
 				return@equationFiltering sum + result
 			}
 		}
