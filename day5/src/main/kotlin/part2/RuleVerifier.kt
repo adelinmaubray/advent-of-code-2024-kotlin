@@ -10,7 +10,7 @@ fun applyRulesForIncorrectUpdate(input: PrintInput): List<List<Int>> {
 	
 	input.updates.forEach { updateToCheck ->
 		val filteredOrders = filterUpdateContainsOrder(updateToCheck, orders)
-		if (getUpdateInWrongCorrectOrder(updateToCheck, filteredOrders)) {
+		if (isWrongOrder(updateToCheck, filteredOrders)) {
 			val fixedUpdate = fixOrderOfWrongUpdates(updateToCheck, filteredOrders)
 			updatesFixed.add(fixedUpdate)
 		}
@@ -23,7 +23,7 @@ fun filterUpdateContainsOrder(update: List<Int>, orders: List<Pair<Int, Int>>): 
 	return orders.filter { update.contains(it.first) && update.contains(it.second) }
 }
 
-fun getUpdateInWrongCorrectOrder(update: List<Int>, orders: List<Pair<Int, Int>>): Boolean {
+fun isWrongOrder(update: List<Int>, orders: List<Pair<Int, Int>>): Boolean {
 	orders.forEach {
 		val firstIndex = update.indexOf(it.first)
 		val secondIndex = update.indexOf(it.second)
@@ -34,14 +34,17 @@ fun getUpdateInWrongCorrectOrder(update: List<Int>, orders: List<Pair<Int, Int>>
 
 fun fixOrderOfWrongUpdates(wrongUpdates: List<Int>, orders: List<Pair<Int, Int>>): List<Int> {
 	
-	val res = wrongUpdates.toMutableList()
-	orders.forEach {
-		val firstIndex = res.indexOf(it.first)
-		val secondIndex = res.indexOf(it.second)
-		if (firstIndex > secondIndex) {
-			Collections.swap(res, firstIndex, secondIndex)
+	var res = wrongUpdates.toMutableList()
+	
+	do {
+		orders.forEach {
+			val firstIndex = res.indexOf(it.first)
+			val secondIndex = res.indexOf(it.second)
+			if (firstIndex > secondIndex) {
+				Collections.swap(res, firstIndex, secondIndex)
+			}
 		}
-		
-	}
+	} while (isWrongOrder(res, orders))
+	
 	return res
 }

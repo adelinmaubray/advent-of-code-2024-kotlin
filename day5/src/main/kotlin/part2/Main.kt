@@ -1,14 +1,14 @@
 package part2
 
 import common.PrintInput
-import common.examplesOrders
-import common.examplesUpdates
+import common.extractOrders
+import common.extractUpdate
 import part1.computeSum
 
 fun main() {
-	
-	val input = PrintInput(examplesUpdates, examplesOrders)
-//	val input = PrintInput(extractUpdate(), extractOrders())
+
+//	val input = PrintInput(extractUpdate(true), extractOrders(true))
+	val input = PrintInput(extractUpdate(), extractOrders())
 	
 	// Check print rules
 	val filteredPrinting = applyRulesForIncorrectUpdate(input)

@@ -7,7 +7,7 @@ import common.extractUpdate
 fun main() {
 	
 	// Get inputs
-//	val input = PrintInput(examplesUpdates, examplesOrders)
+//	val input = PrintInput(extractUpdate(true), extractOrders(true))
 	val input = PrintInput(extractUpdate(), extractOrders())
 	
 	// Check print rules
