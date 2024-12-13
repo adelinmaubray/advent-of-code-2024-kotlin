@@ -10,7 +10,7 @@ fun main() {
 	
 	// Compute the current situation before moving
 	var currentSituation = Situation(Direction.UP, getCurrentPosition(mazeWithSituation))
-	var maze = maskCurrentPosition(mazeWithSituation, currentSituation)
+	val maze = maskCurrentPosition(mazeWithSituation, currentSituation)
 	
 	// Use set to avoid cell duplication
 	val visitedCells = mutableSetOf(currentSituation.position)

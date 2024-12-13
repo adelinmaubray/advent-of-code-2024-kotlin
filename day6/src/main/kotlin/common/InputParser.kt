@@ -8,14 +8,14 @@ fun parseMaze(input: String): MutableList<MutableList<Char>> {
 
 fun getCurrentPosition(maze: List<List<Char>>): Pair<Int, Int> {
 	maze.forEachIndexed { rowIndex, row ->
-		row.forEachIndexed { colIndex, chars ->
+		row.forEachIndexed { colIndex, _ ->
 			if (!listOf('.', '#').contains(maze[rowIndex][colIndex])) return Pair(rowIndex, colIndex)
 		}
 	}
 	throw Exception("Current position not found")
 }
 
-fun maskCurrentPosition(maze: MutableList<MutableList<Char>>, situation: Situation): List<List<Char>> {
+fun maskCurrentPosition(maze: MutableList<MutableList<Char>>, situation: Situation): MutableList<MutableList<Char>> {
 	maze[situation.position.first][situation.position.second] = '.'
-	return maze.toList()
+	return maze
 }

@@ -1,7 +1,4 @@
-package part1
-
-import common.Direction
-import common.Situation
+package common
 
 fun makeAMove(maze: List<List<Char>>, situation: Situation): Situation {
 	
@@ -32,7 +29,7 @@ fun makeAMove(maze: List<List<Char>>, situation: Situation): Situation {
 	}
 }
 
-fun isObstacle(maze: List<List<Char>>, situation: Situation): Boolean {
+private fun isObstacle(maze: List<List<Char>>, situation: Situation): Boolean {
 	val (row, col) = situation.position
 	return try {
 		maze[row][col] == '#'
@@ -44,5 +41,6 @@ fun isObstacle(maze: List<List<Char>>, situation: Situation): Boolean {
 fun isInsideTheMaze(maze: List<List<Char>>, currentSituation: Situation): Boolean {
 	val mazeSize = Pair(maze.lastIndex, maze[0].lastIndex)
 	val currentPosition = currentSituation.position
-	return currentPosition.first <= mazeSize.first && currentPosition.second <= mazeSize.second
+	return currentPosition.first >= 0 && currentPosition.second >= 0 &&
+		currentPosition.first <= mazeSize.first && currentPosition.second <= mazeSize.second
 }
