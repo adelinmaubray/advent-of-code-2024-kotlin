@@ -1,13 +1,12 @@
 package part2
 
-import common.Lists
-import common.list1
-import common.list2
+import common.parseInput
 
 fun main() {
-	// Get the inputs
-//	val lists = common.Lists.create(common.exampleList1, common.exampleList2)
-	val lists = Lists.create(list1, list2)
+	
+	// Parse inputs
+//	val lists = parseInput("example.txt")
+	val lists = parseInput("puzzle_input.txt")
 	
 	// Compute the similarity score
 	val similarityScore = computeSimilarityScore(lists)
