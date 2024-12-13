@@ -1,3 +1,3 @@
 package common
 
-data class Axis(val x: Float, val y: Float)
+data class Axis(val x: Double, val y: Double)

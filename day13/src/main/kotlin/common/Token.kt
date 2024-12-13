@@ -1,6 +1,6 @@
 package common
 
-fun computeTotalNumberOfTokens(behaviors: List<MachineBehavior>): Int {
+fun computeTotalNumberOfTokens(behaviors: List<MachineBehavior>): Long {
 	
 	return behaviors.foldIndexed(0) computedTokenSum@{ index, sumOfToken, behavior ->
 		
@@ -27,16 +27,16 @@ fun computeTotalNumberOfTokens(behaviors: List<MachineBehavior>): Int {
 		val determinant = a * e - b * d
 		
 		// If the determinant is null, then no usable result
-		if (determinant == 0F) return@computedTokenSum sumOfToken
+		if (determinant == 0.0) return@computedTokenSum sumOfToken
 		
 		// Compute x and y
 		val x = (c * e - b * f) / determinant
 		val y = (a * f - c * d) / determinant
 		
 		// Vérifier si x et y sont des entiers
-		if (x.rem(1) != 0F || y.rem(1) != 0F) return@computedTokenSum sumOfToken
+		if (x.rem(1) != 0.0 || y.rem(1) != 0.0) return@computedTokenSum sumOfToken
 		
-		return@computedTokenSum sumOfToken + (3 * x + y).toInt()
+		return@computedTokenSum sumOfToken + (3 * x + y).toLong()
 		
 	}
 }
