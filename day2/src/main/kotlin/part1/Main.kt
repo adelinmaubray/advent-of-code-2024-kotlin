@@ -5,8 +5,8 @@ import common.parseInput
 fun main(args: Array<String>) {
 	
 	// Get the report
-//	val inputReports = common.exampleInputs.map { list -> common.Report.create(list.map { it.toString() }) }
-	val inputReports = parseInput()
+//	val inputReports = parseInput("example.txt")
+	val inputReports = parseInput("puzzle_input.txt")
 	
 	// Compute the number of reports
 	val numberOfSafeReport = computeNumberOfSafeReport(inputReports)
