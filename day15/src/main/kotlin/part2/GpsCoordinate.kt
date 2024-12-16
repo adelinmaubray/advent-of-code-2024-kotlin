@@ -1,4 +1,4 @@
-package part1
+package part2
 
 import common.BOX_SYMBOL
 import common.Warehouse
