@@ -33,6 +33,37 @@ fun makeMoves(warehouse: Warehouse, moves: Moves, initialPosition: Coordinate): 
 	return modifiedWarehouse.toMap()
 }
 
+private fun moveBoxes(warehouse: Warehouse, currentPosition: Coordinate, untilPosition: Coordinate, direction: Direction): Warehouse {
+	val mutableWarehouse = warehouse.toMutableMap()
+	when (direction) {
+		Direction.UP -> {
+			for (i in currentPosition.first - 1 downTo untilPosition.first) {
+				mutableWarehouse[Coordinate(i, currentPosition.second)] = BOX_SYMBOL
+			}
+		}
+		
+		Direction.DOWN -> {
+			for (i in currentPosition.first + 1..untilPosition.first) {
+				mutableWarehouse[Coordinate(i, currentPosition.second)] = BOX_SYMBOL
+			}
+		}
+		
+		Direction.LEFT -> {
+			for (i in currentPosition.second - 1 downTo untilPosition.second) {
+				mutableWarehouse[Coordinate(currentPosition.first, i)] = BOX_SYMBOL
+			}
+		}
+		
+		Direction.RIGHT -> {
+			for (i in currentPosition.second + 1..untilPosition.second) {
+				mutableWarehouse[Coordinate(currentPosition.first, i)] = BOX_SYMBOL
+			}
+		}
+	}
+	mutableWarehouse[currentPosition] = FREE_SPACE_SYMBOL
+	return mutableWarehouse
+}
+
 private fun findFirstSignificantSymbol(position: Coordinate, direction: Direction, warehouse: Warehouse): Coordinate {
 	
 	val warehouseSize = sqrt(warehouse.size.toFloat()).toInt()
@@ -81,62 +112,4 @@ private fun findFirstSignificantSymbol(position: Coordinate, direction: Directio
 	
 	// Should return a wall since the warehouse is surrounded by walls
 	throw Exception("The warehouse is probably not correct")
-}
-
-
-private fun moveBoxes(warehouse: Warehouse, currentPosition: Coordinate, untilPosition: Coordinate, direction: Direction): Warehouse {
-	val mutableWarehouse = warehouse.toMutableMap()
-	when (direction) {
-		Direction.UP -> {
-			for (i in currentPosition.first - 1 downTo untilPosition.first) {
-				mutableWarehouse[Pair(i, currentPosition.second)] = BOX_SYMBOL
-			}
-		}
-		
-		Direction.DOWN -> {
-			for (i in currentPosition.first + 1..untilPosition.first) {
-				mutableWarehouse[Pair(i, currentPosition.second)] = BOX_SYMBOL
-			}
-		}
-		
-		Direction.LEFT -> {
-			for (i in currentPosition.second - 1 downTo untilPosition.second) {
-				mutableWarehouse[Pair(currentPosition.first, i)] = BOX_SYMBOL
-			}
-		}
-		
-		Direction.RIGHT -> {
-			for (i in currentPosition.second + 1..untilPosition.second) {
-				mutableWarehouse[Pair(currentPosition.first, i)] = BOX_SYMBOL
-			}
-		}
-	}
-	mutableWarehouse[currentPosition] = FREE_SPACE_SYMBOL
-	return mutableWarehouse
-}
-
-private fun applyCurrentPosition(position: Coordinate, direction: Direction): Coordinate {
-	return when (direction) {
-		Direction.UP -> Pair(position.first - 1, position.second)
-		Direction.RIGHT -> Pair(position.first, position.second + 1)
-		Direction.DOWN -> Pair(position.first + 1, position.second)
-		Direction.LEFT -> Pair(position.first, position.second - 1)
-	}
-}
-
-private fun isBox(position: Coordinate, direction: Direction, warehouse: Warehouse): Boolean {
-	return funIsObstacle(position, direction, warehouse, BOX_SYMBOL)
-}
-
-private fun isWall(position: Coordinate, direction: Direction, warehouse: Warehouse): Boolean {
-	return funIsObstacle(position, direction, warehouse, WALL_SYMBOL)
-}
-
-private fun funIsObstacle(position: Coordinate, direction: Direction, warehouse: Warehouse, symbol: Char): Boolean {
-	return when (direction) {
-		Direction.UP -> warehouse[Pair(position.first - 1, position.second)]
-		Direction.RIGHT -> warehouse[Pair(position.first, position.second + 1)]
-		Direction.DOWN -> warehouse[Pair(position.first + 1, position.second)]
-		Direction.LEFT -> warehouse[Pair(position.first, position.second - 1)]
-	} == symbol
 }

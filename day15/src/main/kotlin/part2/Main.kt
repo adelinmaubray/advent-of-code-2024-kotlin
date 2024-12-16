@@ -7,9 +7,9 @@ fun main() {
 	val initialPosition = getCurrentPosition(warehouse)
 	val warehouseWithoutCurrentPosition = removeCurrentPosition(warehouse, initialPosition)
 	
-	printWarehouse(warehouseWithoutCurrentPosition, initialPosition, true)
-
-//	val warehouseAfterMoves = makeMoves(warehouseWithoutCurrentPosition, moves, initialPosition)
+	printWarehouse(warehouseWithoutCurrentPosition, initialPosition)
+	
+	val warehouseAfterMoves = makeMoves(warehouseWithoutCurrentPosition, moves, initialPosition)
 
 //	printWarehouse(warehouseAfterMoves, initialPosition)
 

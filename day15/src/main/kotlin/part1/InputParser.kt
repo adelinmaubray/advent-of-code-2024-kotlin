@@ -1,5 +1,6 @@
 package part1
 
+import common.CURRENT_POSITION
 import common.Coordinate
 import common.Moves
 import common.Warehouse
@@ -27,7 +28,7 @@ fun parseInput(isExample: Boolean = false): Pair<Warehouse, Moves> {
 }
 
 fun getCurrentPosition(warehouse: Warehouse): Coordinate {
-	return warehouse.filter { (_, value) -> value == '@' }.keys.first()
+	return warehouse.filter { (_, value) -> value == CURRENT_POSITION }.keys.first()
 }
 
 fun removeCurrentPosition(warehouse: Warehouse, currentPosition: Coordinate): Warehouse {
@@ -47,7 +48,7 @@ fun printWarehouse(warehouse: Warehouse, curentPosition: Coordinate) {
 		}
 	}
 	
-	mutableWarehouse[curentPosition] = '@'
+	mutableWarehouse[curentPosition] = CURRENT_POSITION
 	mutableWarehouse.entries.forEach { (key, value) -> list[key.first][key.second] = value }
 	
 	list.forEach { lines ->
