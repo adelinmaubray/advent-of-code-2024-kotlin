@@ -1,6 +1,10 @@
-package common
+package part1
 
+import common.Coordinate
+import common.Moves
+import common.Warehouse
 import java.io.File
+import kotlin.math.sqrt
 
 fun parseInput(isExample: Boolean = false): Pair<Warehouse, Moves> {
 	
@@ -10,7 +14,7 @@ fun parseInput(isExample: Boolean = false): Pair<Warehouse, Moves> {
 		.readLines()
 		.flatMapIndexed { rowIndex, row ->
 			row.mapIndexed { colIndex, char ->
-				val coordinate = Coordinate(rowIndex, colIndex)
+				val coordinate = Pair(rowIndex, colIndex)
 				coordinate to char
 			}
 		}
@@ -30,4 +34,27 @@ fun removeCurrentPosition(warehouse: Warehouse, currentPosition: Coordinate): Wa
 	val mutableWarehouse = warehouse.toMutableMap()
 	mutableWarehouse[currentPosition] = '.'
 	return mutableWarehouse
+}
+
+fun printWarehouse(warehouse: Warehouse, curentPosition: Coordinate) {
+	
+	val mutableWarehouse = warehouse.toMutableMap()
+	
+	val size = sqrt(warehouse.size.toFloat()).toInt()
+	var list = MutableList(size) {
+		MutableList(size) {
+			'.'
+		}
+	}
+	
+	mutableWarehouse[curentPosition] = '@'
+	mutableWarehouse.entries.forEach { (key, value) -> list[key.first][key.second] = value }
+	
+	list.forEach { lines ->
+		lines.forEach(::print)
+		println()
+	}
+	
+	println()
+	println()
 }
