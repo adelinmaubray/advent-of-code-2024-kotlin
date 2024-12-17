@@ -9,4 +9,14 @@
 			<option name="Make" enabled="true"/>
 		</method>
 	</configuration>
+	<configuration default="false" name="Day 12 Part 1" type="JetRunConfigurationType">
+		<option name="ALTERNATIVE_JRE_PATH" value="azul-21"/>
+		<option name="MAIN_CLASS_NAME" value="part1.MainKt"/>
+		<module name="day12"/>
+		<shortenClasspath name="NONE"/>
+		<option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/day12"/>
+		<method v="2">
+			<option name="Make" enabled="true"/>
+		</method>
+	</configuration>
 </component>
