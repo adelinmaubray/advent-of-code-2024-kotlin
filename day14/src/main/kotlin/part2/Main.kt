@@ -1,4 +1,4 @@
-package part1
+package part2
 
 import common.IS_EXAMPLE
 import common.parseInput
@@ -10,9 +10,7 @@ fun main() {
 	val filePath = if (IS_EXAMPLE) "example.txt" else "puzzle_input.txt"
 	val initialRobots = parseInput(filePath)
 	
-	val robots = moveRobots(initialRobots)
+	moveRobots(initialRobots)
 	
-	val safetyFactor = computeSafetyFactor(robots)
-	
-	println(safetyFactor)
+	// brute force : print robots position in file and search for tree
 }

@@ -1,18 +1,5 @@
 package common
 
-const val NUMBER_OF_SECONDS = 100
-
-fun moveRobots(initialRobotPosition: List<RobotInformation>): List<RobotInformation> {
-	
-	var robots = initialRobotPosition
-	(1..NUMBER_OF_SECONDS).forEach { second ->
-		robots.forEach { robot ->
-			robot.position = computeRobotNewPosition(robot)
-		}
-	}
-	return robots
-}
-
 fun computeRobotNewPosition(robot: RobotInformation): Coordinate {
 	
 	var x = robot.position.first + robot.velocity.first

@@ -1,4 +1,8 @@
-package common
+package part1
+
+import common.RobotInformation
+import common.getBathroomHeight
+import common.getBathroomWidth
 
 fun computeSafetyFactor(robots: List<RobotInformation>): Int {
 	
