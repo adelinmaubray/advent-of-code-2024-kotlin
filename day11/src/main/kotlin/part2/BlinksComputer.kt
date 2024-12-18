@@ -1,40 +1,26 @@
 package part2
 
 import common.computeNewStone
-import java.io.File
 
-fun computeBlinks(initialStones: List<Int>, numberOfIterations: Int) {
+fun computeBlinks(initialStones: List<Long>): Map<Long, Long> {
 	
-	tempFolder.mkdirs()
+	var stoneCounts = initialStones.groupingBy { it }.eachCount().mapValues { it.value.toLong() } // represent how many times a number is present
 	
-	var currentFolder = File(tempFolder, "0")
-	currentFolder.mkdir()
-	writeToFile(currentFolder, 0, initialStones.map { it.toLong() })
-	
-	(1..numberOfIterations).forEach { stoneId ->
-		
-		var newFolder = File(tempFolder, stoneId.toString())
-		newFolder.mkdir()
-		
-		var fileWritingIndex = 0L
-		
-		currentFolder.walkTopDown().forEachIndexed fileListing@{ fileIndex, stoneFile ->
-			
-			if (!stoneFile.path.endsWith(".txt")) return@fileListing
-			
-			val stonesForFile = getStones(stoneFile)
-			
-			val stoneToWrite = mutableListOf<Long>()
-			stonesForFile.forEach { stone ->
-				stoneToWrite.addAll(computeNewStone(stone.toLong()))
-			}
-			
-			stoneToWrite.chunked(1000).forEach { chunk ->
-				fileWritingIndex++
-				writeToFile(newFolder, fileWritingIndex, chunk)
-			}
-		}
-		
-		currentFolder = newFolder
+	repeat(75) {
+		stoneCounts = processStoneMap(stoneCounts)
 	}
+	
+	return stoneCounts
+}
+
+fun processStoneMap(stoneCounts: Map<Long, Long>): Map<Long, Long> {
+	
+	val newCounts = mutableMapOf<Long, Long>()
+	stoneCounts.forEach { stone, count ->
+		val newStones = computeNewStone(stone)
+		newStones.forEach { newStone ->
+			newCounts[newStone] = newCounts.getOrDefault(newStone, 0L) + count // increment the number of presence for the number
+		}
+	}
+	return newCounts
 }

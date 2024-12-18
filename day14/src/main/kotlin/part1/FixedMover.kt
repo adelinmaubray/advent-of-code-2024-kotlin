@@ -8,7 +8,8 @@ const val NUMBER_OF_SECONDS = 100
 fun moveRobots(initialRobotPosition: List<RobotInformation>): List<RobotInformation> {
 	
 	var robots = initialRobotPosition
-	(1..NUMBER_OF_SECONDS).forEach { second ->
+	
+	repeat(NUMBER_OF_SECONDS) {
 		robots.forEach { robot ->
 			robot.position = computeRobotNewPosition(robot)
 		}

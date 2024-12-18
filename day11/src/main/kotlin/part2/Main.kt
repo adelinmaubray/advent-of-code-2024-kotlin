@@ -5,21 +5,10 @@ import common.getInitialStones
 fun main() {
 	
 	// Parse input
-//	val stones = getInitialStones("example.txt")
+//	val stones = getStones("example.txt")
 	val stones = getInitialStones("puzzle_input.txt")
 	
-	val finalNumberOfStones = stones.fold(0L) stoneBlink@{ numberOfStones, stone ->
-		
-		tempFolder.deleteRecursively()
-		println("Handling $stone | $numberOfStones already found")
-		
-		// Compute 75 blinks
-		val numberOfIterations = 75
-		computeBlinks(listOf(stone), numberOfIterations)
-		
-		// Get the number of stones
-		return@stoneBlink numberOfIterations + getNumberOfStones(numberOfIterations)
-	}
-	
+	val finalStones = computeBlinks(stones)
+	val finalNumberOfStones = finalStones.values.sum()
 	println(finalNumberOfStones)
 }

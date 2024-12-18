@@ -14,11 +14,11 @@ fun moveRobots(initialRobotPosition: List<RobotInformation>): List<RobotInformat
 	tempFolder.mkdirs()
 	
 	var robots = initialRobotPosition
-	(1..MAX_NUMBER_OF_SECONDS).forEachIndexed { iteration, second ->
+	repeat(MAX_NUMBER_OF_SECONDS) {
 		robots.forEach { robot ->
 			robot.position = computeRobotNewPosition(robot)
 		}
-		printRobots(robots, iteration, tempFolder)
+		printRobots(robots, it, tempFolder)
 	}
 	return robots
 }
