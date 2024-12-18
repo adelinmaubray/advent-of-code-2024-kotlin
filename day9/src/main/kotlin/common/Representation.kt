@@ -11,7 +11,7 @@ fun getDiskMapRepresentation(diskMap: List<Int>): List<Pair<Char, Int>> {
 			(1..currentDigit).forEach { _ -> diskMapRepresentation.add(representation.digitToChar() to id) }
 		} else {
 			// This is a free space - its representation is '.'
-			(1..currentDigit).forEach { _ -> diskMapRepresentation.add('.' to 0) }
+			(1..currentDigit).forEach { _ -> diskMapRepresentation.add('.' to 0) } // Set the ID to 0
 		}
 	}
 	return diskMapRepresentation

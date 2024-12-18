@@ -7,8 +7,8 @@ import common.getDiskMapRepresentation
 fun main() {
 	
 	// Get the diskmap
-	val diskMap = getDiskMap("example.txt")
-//	val diskMap = getDiskMap("puzzle_input.txt")
+//	val diskMap = getDiskMap("example.txt")
+	val diskMap = getDiskMap("puzzle_input.txt")
 	
 	// Compute the file ID and empty spaces
 	val representationWithEmptySpace = getDiskMapRepresentation(diskMap)
