@@ -1,9 +1,6 @@
 package part1
 
-import common.IS_EXAMPLE
-import common.Point
-import common.getMemorySpace
-import common.parseInput
+import common.*
 
 fun main() {
 	

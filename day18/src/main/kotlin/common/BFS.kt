@@ -1,6 +1,4 @@
-package part1
-
-import common.Point
+package common
 
 fun findVisitedSteps(bytes: List<Point>, start: Point, end: Point, size: Int): List<Point> {
 	
