@@ -1,3 +1,3 @@
 package common
 
-data class RobotInformation(val position: Coordinate, val velocity: Coordinate)
+data class RobotInformation(var position: Coordinate, val velocity: Coordinate)

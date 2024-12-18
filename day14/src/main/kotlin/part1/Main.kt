@@ -1,16 +1,20 @@
 package part1
 
 import common.IS_EXAMPLE
+import common.computeSafetyFactor
+import common.moveRobots
 import common.parseInput
 
 fun main() {
 	
-	IS_EXAMPLE = true
+	IS_EXAMPLE = false
 	
 	val filePath = if (IS_EXAMPLE) "example.txt" else "puzzle_input.txt"
-	val robots = parseInput(filePath)
+	val initialRobots = parseInput(filePath)
 	
-	robots.forEach {
-		println(it)
-	}
+	val robots = moveRobots(initialRobots)
+	
+	val safetyFactor = computeSafetyFactor(robots)
+	
+	println(safetyFactor)
 }

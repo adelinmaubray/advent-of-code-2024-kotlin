@@ -2,5 +2,5 @@ package common
 
 var IS_EXAMPLE: Boolean = false
 
-val BATHROOM_WIDTH = if (IS_EXAMPLE) 11 else 101
-val BATHROOM_HEIGHT = if (IS_EXAMPLE) 7 else 103
+fun getBathroomWidth(): Int = if (IS_EXAMPLE) 11 else 101
+fun getBathroomHeight(): Int = if (IS_EXAMPLE) 7 else 103
