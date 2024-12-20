@@ -19,6 +19,4 @@ fun main() {
 	val savedTimePerCheat = computeSaveTimeForEachCheats(maze, pathWithoutCheat, bruteMaze.size)
 	println(savedTimePerCheat.toSortedMap())
 	println(savedTimePerCheat.filter { it.key >= 100 }.values.sum())
-	
-	// 413 is too low
 }
