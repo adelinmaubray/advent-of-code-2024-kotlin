@@ -1,4 +1,7 @@
-package common
+package part1
+
+import common.Design
+import common.Pattern
 
 fun filterPattern(patterns: Pattern, designs: Design): Design {
 	
