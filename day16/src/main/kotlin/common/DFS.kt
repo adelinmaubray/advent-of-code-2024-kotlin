@@ -1,55 +1,56 @@
 package common
 
-fun findAllPath(mazeWalls: List<Point>, start: Point, end: Point, size: Int): List<Path> {
+import java.util.*
+
+fun findPathWithLowerScore(mazeWalls: List<Point>, start: Point, end: Point, size: Int): PathState {
 	
-	// All paths found
-	val allPaths = mutableListOf<Path>()
+	// A priority queue by score
+	val queue = PriorityQueue<PathState>(compareBy { it.score })
+	
+	// Map of best score for each point
+	val bestScores = mutableMapOf<Pair<Point, Direction>, Long>()
 	
 	// Possible directions
 	val directions = Direction.entries
 	
-	// Visited points for the current path
-	val currentPath = mutableListOf<Point>()
-	val visited = mutableSetOf<Point>()
+	// Initial state
+	queue.add(PathState(start))
 	
-	// Recursive function
-	fun explore(current: Point) {
+	while (queue.isNotEmpty()) {
 		
-		// Add current point to visited points
-		currentPath.add(current)
-		visited.add(current)
+		val current = queue.poll()
 		
-		// Si on atteint la fin, on a trouvé un chemin valide
-		if (current == end) {
+		// If the end is reached, it is the best solution (due to Priority Queue)
+		if (current.point == end) {
+			return current
+		}
+		
+		directions.forEach { newDirection ->
 			
-			val scoredPath = getPathScore(currentPath)
-			allPaths.add(scoredPath)
-		} else {
+			val nextX = current.point.x + newDirection.point.x
+			val nextY = current.point.y + newDirection.point.y
+			val nextPoint = Point(nextX, nextY)
 			
-			// Get all directions
-			directions.forEach { direction ->
+			if (isVisitable(nextX, nextY, size) && !mazeWalls.contains(nextPoint)) {
 				
-				val nextX = current.x + direction.point.x
-				val nextY = current.y + direction.point.y
-				val nextCell = Point(nextX, nextY)
+				// Compute extra cost
+				val turnCost = if (current.direction != newDirection) 1000 else 0
+				val newScore = current.score + 1 + turnCost
 				
-				if (isVisitable(nextX, nextY, size) &&
-					!mazeWalls.contains(nextCell) &&
-					!visited.contains(nextCell)
-				) {
+				val stateKey = Pair(nextPoint, newDirection)
+				val existingScore = bestScores[stateKey]
+				
+				// Carry on only if it is the best score for this position and direction
+				if (existingScore == null || newScore < existingScore) {
 					
-					explore(nextCell)
+					bestScores[stateKey] = newScore
+					queue.add(PathState(nextPoint, newScore, current.cells + nextPoint, newDirection))
 				}
 			}
 		}
-		
-		// Backtracking
-		currentPath.removeAt(currentPath.lastIndex)
-		visited.remove(current)
 	}
 	
-	explore(start)
-	return allPaths
+	throw Exception("No path found!")
 }
 
 // check if the position is physically valid
@@ -58,11 +59,11 @@ private fun isVisitable(x: Int, y: Int, size: Int): Boolean {
 }
 
 // Rebuild the path
-private fun getPathScore(path: List<Point>): Path {
+private fun getPathScore(path: List<Point>): Long {
 	
 	var currentDirection = Direction.RIGHT
 	
-	val score = path.foldIndexed(0L) { index, pathScore, point ->
+	return path.foldIndexed(0L) { index, pathScore, point ->
 		
 		if (index == path.lastIndex) return@foldIndexed pathScore
 		
@@ -74,7 +75,4 @@ private fun getPathScore(path: List<Point>): Path {
 			pathScore + 1
 		}
 	}
-	
-	return Path(score, listOf(*path.toTypedArray()))
-
 }

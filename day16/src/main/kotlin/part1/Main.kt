@@ -1,7 +1,7 @@
 package part1
 
 import common.computeMaze
-import common.findAllPath
+import common.findPathWithLowerScore
 import common.parseInput
 
 fun main() {
@@ -13,7 +13,7 @@ fun main() {
 	val start = coordinates.first
 	val end = coordinates.second
 	
-	val allPaths = findAllPath(maze, start, end, bruteMaze.size)
+	val bestPath = findPathWithLowerScore(maze, start, end, bruteMaze.size)
 	
-	println(allPaths.minBy { it.score }.score)
+	println(bestPath.score)
 }
