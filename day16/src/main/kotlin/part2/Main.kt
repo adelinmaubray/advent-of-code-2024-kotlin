@@ -12,8 +12,8 @@ fun main() {
 	val start = coordinates.first
 	val end = coordinates.second
 	
-	val bestPaths = findPathAllWithLowerScore(maze, start, end, bruteMaze.size)
-	val allPlacesToSit = bestPaths.flatMap { it.visitedCells }.toSet()
+	val bestPaths = findPathAllWithLowerScoreWithDijkstra(maze, start, end, bruteMaze.size)
+	val allPlacesToSit = bestPaths.flatMap { it.path }.toSet()
 	
 	println(allPlacesToSit.size)
 }
