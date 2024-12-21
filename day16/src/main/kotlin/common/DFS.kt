@@ -1,61 +1,55 @@
 package common
 
-fun findShortestPathLength(maze: List<Point>, start: Point, end: Point, size: Int): List<Point> {
+fun findAllPath(mazeWalls: List<Point>, start: Point, end: Point, size: Int): List<Path> {
+	
+	// All paths found
+	val allPaths = mutableListOf<Path>()
 	
 	// Possible directions
-	val directions = listOf(
-		Point(-1, 0),
-		Point(0, 1),
-		Point(1, 0),
-		Point(0, -1)
-	)
+	val directions = Direction.entries
 	
-	// Visited points
+	// Visited points for the current path
+	val currentPath = mutableListOf<Point>()
 	val visited = mutableSetOf<Point>()
 	
-	// To rebuild the path
-	val parent = mutableMapOf<Point, Point>()
-	
-	// Queue for BFS algorithm
-	val queue = ArrayDeque<Point>()
-	queue.add(start)
-	visited.add(start)
-	
-	while (queue.isNotEmpty()) {
+	// Recursive function
+	fun explore(current: Point) {
 		
-		val current = queue.removeFirst()
+		// Add current point to visited points
+		currentPath.add(current)
+		visited.add(current)
 		
-		// Exit is reached
-		if (current == end) return getCompletePath(parent, start, end)
-		
-		// Explore next cells
-		directions.forEach allDirections@{ direction ->
+		// Si on atteint la fin, on a trouvé un chemin valide
+		if (current == end) {
 			
-			val nextX = current.x + direction.x
-			val nextY = current.y + direction.y
-			val nextCell = Point(nextX, nextY)
+			val scoredPath = getPathScore(currentPath)
+			allPaths.add(scoredPath)
+		} else {
 			
-			// Check the cell is valid (in the bound if
-			if (!isVisitable(nextX, nextY, size)) {
-				return@allDirections
+			// Get all directions
+			directions.forEach { direction ->
+				
+				val nextX = current.x + direction.point.x
+				val nextY = current.y + direction.point.y
+				val nextCell = Point(nextX, nextY)
+				
+				if (isVisitable(nextX, nextY, size) &&
+					!mazeWalls.contains(nextCell) &&
+					!visited.contains(nextCell)
+				) {
+					
+					explore(nextCell)
+				}
 			}
-			
-			// Check it is not a wall
-			if (maze.contains(nextCell)) {
-				return@allDirections
-			}
-			
-			// Check it has not been visited before
-			if (visited.contains(nextCell)) {
-				return@allDirections
-			}
-			
-			queue.add(nextCell)
-			visited.add(nextCell)
-			parent[nextCell] = current
 		}
+		
+		// Backtracking
+		currentPath.removeAt(currentPath.lastIndex)
+		visited.remove(current)
 	}
-	throw Exception("Not path found!")
+	
+	explore(start)
+	return allPaths
 }
 
 // check if the position is physically valid
@@ -64,16 +58,23 @@ private fun isVisitable(x: Int, y: Int, size: Int): Boolean {
 }
 
 // Rebuild the path
-private fun getCompletePath(parent: Map<Point, Point>, start: Point, end: Point): List<Point> {
+private fun getPathScore(path: List<Point>): Path {
 	
-	val path = mutableListOf<Point>()
-	var current = end
+	var currentDirection = Direction.RIGHT
 	
-	while (parent.containsKey(current)) {
-		path.add(0, current)
-		current = parent[current]!!
+	val score = path.foldIndexed(0L) { index, pathScore, point ->
+		
+		if (index == path.lastIndex) return@foldIndexed pathScore
+		
+		val newDirection = point.directionTo(path[index + 1])
+		return@foldIndexed if (currentDirection != newDirection) {
+			currentDirection = newDirection
+			pathScore + 1 + 1000
+		} else {
+			pathScore + 1
+		}
 	}
 	
-	path.add(0, start)
-	return path
+	return Path(score, listOf(*path.toTypedArray()))
+
 }
