@@ -1,5 +1,8 @@
-package common
+package part1
 
+import common.Direction
+import common.PathState
+import common.Point
 import java.util.*
 
 fun findPathWithLowerScore(mazeWalls: List<Point>, start: Point, end: Point, size: Int): PathState {
@@ -44,7 +47,7 @@ fun findPathWithLowerScore(mazeWalls: List<Point>, start: Point, end: Point, siz
 				if (existingScore == null || newScore < existingScore) {
 					
 					bestScores[stateKey] = newScore
-					queue.add(PathState(nextPoint, newScore, current.cells + nextPoint, newDirection))
+					queue.add(PathState(nextPoint, newScore, current.visitedCells + nextPoint, newDirection))
 				}
 			}
 		}
@@ -56,23 +59,4 @@ fun findPathWithLowerScore(mazeWalls: List<Point>, start: Point, end: Point, siz
 // check if the position is physically valid
 private fun isVisitable(x: Int, y: Int, size: Int): Boolean {
 	return x in 0 until size && y in 0 until size
-}
-
-// Rebuild the path
-private fun getPathScore(path: List<Point>): Long {
-	
-	var currentDirection = Direction.RIGHT
-	
-	return path.foldIndexed(0L) { index, pathScore, point ->
-		
-		if (index == path.lastIndex) return@foldIndexed pathScore
-		
-		val newDirection = point.directionTo(path[index + 1])
-		return@foldIndexed if (currentDirection != newDirection) {
-			currentDirection = newDirection
-			pathScore + 1 + 1000
-		} else {
-			pathScore + 1
-		}
-	}
 }

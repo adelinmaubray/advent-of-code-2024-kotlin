@@ -1,4 +1,4 @@
-package part1
+package part2
 
 import common.computeMaze
 import common.parseInput
@@ -12,7 +12,8 @@ fun main() {
 	val start = coordinates.first
 	val end = coordinates.second
 	
-	val bestPath = findPathWithLowerScore(maze, start, end, bruteMaze.size)
+	val bestPaths = findPathAllWithLowerScore(maze, start, end, bruteMaze.size)
+	val allPlacesToSit = bestPaths.flatMap { it.visitedCells }.toSet()
 	
-	println(bestPath.score)
+	println(allPlacesToSit.size)
 }
