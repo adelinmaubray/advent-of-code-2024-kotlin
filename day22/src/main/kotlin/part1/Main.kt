@@ -7,7 +7,7 @@ fun main() {
 
 //	val initialSecretNumbers = getInitialSecretNumberForEachBuyer("example.txt")
 	val initialSecretNumbers = getInitialSecretNumberForEachBuyer("puzzle_input.txt")
-	val total = initialSecretNumbers.sumOf { getSecretNumbersForOneBuyerAfterOneDay(it).last() }
+	val total = initialSecretNumbers.sumOf { getSecretNumbersForOneBuyerAfterOneDay(it).last().value }
 	println(total)
 
 }

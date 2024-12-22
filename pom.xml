@@ -16,7 +16,6 @@
 		<kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
 		<math-parser.version>6.1.0</math-parser.version>
 		<guava.version>33.3.1-jre</guava.version>
-		<multik.version>0.2.3</multik.version>
 	</properties>
 	
 	<modules>
@@ -62,16 +61,6 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jetbrains.kotlinx</groupId>
-				<artifactId>multik-core</artifactId>
-				<version>${multik.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jetbrains.kotlinx</groupId>
-				<artifactId>multik-kotlin</artifactId>
-				<version>${multik.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
