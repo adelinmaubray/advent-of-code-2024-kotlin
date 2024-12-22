@@ -1,6 +1,7 @@
 package deprecated
 
 import common.Coordinate
+import common.Region
 import common.getNeighbors
 
 fun getRegions(garden: List<PlantInformation>): List<Region> {

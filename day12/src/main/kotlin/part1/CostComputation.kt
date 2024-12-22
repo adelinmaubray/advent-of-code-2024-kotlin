@@ -1,4 +1,7 @@
-package common
+package part1
+
+import common.Region
+import common.getNeighbors
 
 fun computeCosts(regions: List<Region>): Long {
 	return regions.sumOf { region ->

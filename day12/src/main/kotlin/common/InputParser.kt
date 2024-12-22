@@ -15,5 +15,14 @@ fun getGarden(path: String): List<PlantInformation> {
  */
 
 fun getGardenFromTable(path: String): List<List<Char>> {
-	return return File("src/main/resources/$path").readLines().map { it.toList() }
+	val lines = File("src/main/resources/$path").readLines()
+	val garden = List(lines.size) {
+		MutableList<Char>(lines.size) { '.' }
+	}
+	lines.forEachIndexed { rowIndex, row ->
+		row.forEachIndexed { colIndex, ch ->
+			garden[colIndex][rowIndex] = ch
+		}
+	}
+	return garden
 }
