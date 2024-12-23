@@ -1,8 +1,6 @@
 package part1
 
 import common.getConnections
-import common.getGroupWithT
-import common.getGroupes
 
 fun main() {
 

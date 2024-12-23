@@ -1,4 +1,7 @@
-package common
+package part1
+
+import common.Connection
+import common.Connections
 
 fun getGroupes(connections: Connections): Connections {
 	
