@@ -2,51 +2,95 @@ package part2
 
 import common.Coordinate
 import common.Region
-import common.compareTo
-import common.getNeighbors
 
-fun computeCosts(garden: List<List<Char>>, regions: List<Region>): Long {
+fun computeCosts(regions: List<Region>): Int {
 	return regions.sumOf { region ->
-		computeCostForOneRegion(garden, region)
+		computeCostForOneRegion(region)
 	}
 }
 
-fun computeCostForOneRegion(garden: List<List<Char>>, region: Region): Long {
+fun computeCostForOneRegion(region: Region): Int {
 	val area = region.size
-	val perimeter = countGroupSides(garden, region)
+	val perimeter = countGroupSides(region)
 	return area * perimeter
 }
 
-fun countGroupSides(garden: List<List<Char>>, region: Region): Long {
+// Function from claude-3.5-sonnet
+fun countGroupSides(group: Set<Coordinate>): Int {
 	
-	val height = garden.size
-	val width = garden[0].size
-	var sides = 0L
+	// Split horizontal and vertical segments
+	val horizontalSegments = mutableSetOf<Pair<Int, IntRange>>()
+	val verticalSegments = mutableSetOf<Pair<IntRange, Int>>()
 	
-	// On crée une grille de booléens pour marquer les côtés déjà comptés
-	val visitedEdges = mutableSetOf<Pair<Coordinate, Coordinate>>()
-	
-	for (pos in region) {
-		val neighbors = getNeighbors(pos)
-		
-		for (neighbor in neighbors) {
-			// Si le voisin est hors grille ou n'appartient pas au groupe
-			if (neighbor.x < 0 || neighbor.x >= height ||
-				neighbor.y < 0 || neighbor.y >= width ||
-				neighbor !in region
+	group.forEach { slot ->
+		// Upper side
+		if (Coordinate(slot.x - 1, slot.y) !in group) {
+			var startCol = slot.y
+			while (startCol > 0 && Coordinate(slot.x, startCol - 1) in group &&
+				Coordinate(slot.x - 1, startCol - 1) !in group
 			) {
-				
-				// On crée une paire ordonnée pour représenter ce côté
-				val edge = if (pos.compareTo(neighbor) < 0) pos to neighbor else neighbor to pos
-				
-				// Si on n'a pas encore compté ce côté
-				if (edge !in visitedEdges) {
-					sides++
-					visitedEdges.add(edge)
-				}
+				startCol--
 			}
+			var endCol = slot.y
+			while (Coordinate(slot.x, endCol + 1) in group &&
+				Coordinate(slot.x - 1, endCol + 1) !in group
+			) {
+				endCol++
+			}
+			horizontalSegments.add(slot.x to startCol..endCol)
+		}
+		
+		// Right side
+		if (Coordinate(slot.x + 1, slot.y) !in group) {
+			var startCol = slot.y
+			while (startCol > 0 && Coordinate(slot.x, startCol - 1) in group &&
+				Coordinate(slot.x + 1, startCol - 1) !in group
+			) {
+				startCol--
+			}
+			var endCol = slot.y
+			while (Coordinate(slot.x, endCol + 1) in group &&
+				Coordinate(slot.x + 1, endCol + 1) !in group
+			) {
+				endCol++
+			}
+			horizontalSegments.add((slot.x + 1) to startCol..endCol)
+		}
+		
+		// Left side
+		if (Coordinate(slot.x, slot.y - 1) !in group) {
+			var startRow = slot.x
+			while (startRow > 0 && Coordinate(startRow - 1, slot.y) in group &&
+				Coordinate(startRow - 1, slot.y - 1) !in group
+			) {
+				startRow--
+			}
+			var endRow = slot.x
+			while (Coordinate(endRow + 1, slot.y) in group &&
+				Coordinate(endRow + 1, slot.y - 1) !in group
+			) {
+				endRow++
+			}
+			verticalSegments.add(startRow..endRow to slot.y)
+		}
+		
+		// Lower side
+		if (Coordinate(slot.x, slot.y + 1) !in group) {
+			var startRow = slot.x
+			while (startRow > 0 && Coordinate(startRow - 1, slot.y) in group &&
+				Coordinate(startRow - 1, slot.y + 1) !in group
+			) {
+				startRow--
+			}
+			var endRow = slot.x
+			while (Coordinate(endRow + 1, slot.y) in group &&
+				Coordinate(endRow + 1, slot.y + 1) !in group
+			) {
+				endRow++
+			}
+			verticalSegments.add(startRow..endRow to (slot.y + 1))
 		}
 	}
 	
-	return sides
+	return horizontalSegments.size + verticalSegments.size
 }
