@@ -1,7 +1,6 @@
 package part2
 
 import common.BOX_SYMBOL
-import common.Warehouse
 
 fun computeGpsCoordinates(warehouseAfterMoves: Warehouse): Long {
 	var sum = 0L

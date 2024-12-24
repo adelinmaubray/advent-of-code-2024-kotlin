@@ -1,9 +1,6 @@
 package part1
 
 import common.CURRENT_POSITION
-import common.Coordinate
-import common.Moves
-import common.Warehouse
 import java.io.File
 import kotlin.math.sqrt
 

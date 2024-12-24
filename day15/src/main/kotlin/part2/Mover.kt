@@ -44,8 +44,8 @@ private fun findFirstSignificantSymbol(position: Coordinate, direction: Directio
 	when (direction) {
 		// TODO find how to get the highest wall
 		Direction.UP -> {
-			for (i in position.first - 1 downTo 0) {
-				val nextPositionToCheck = Pair(i, position.second)
+			for (i in position.x - 1 downTo 0) {
+				val nextPositionToCheck = Coordinate(i, position.y)
 				return when (warehouse[nextPositionToCheck]) {
 					WALL_SYMBOL, FREE_SPACE_SYMBOL -> nextPositionToCheck
 					else -> continue
@@ -55,8 +55,8 @@ private fun findFirstSignificantSymbol(position: Coordinate, direction: Directio
 		
 		// TODO find how to get the lowest wall
 		Direction.DOWN -> {
-			for (i in position.first + 1 until warehouseSize) {
-				val nextPositionToCheck = Pair(i, position.second)
+			for (i in position.x + 1 until warehouseSize) {
+				val nextPositionToCheck = Coordinate(i, position.y)
 				return when (warehouse[nextPositionToCheck]) {
 					WALL_SYMBOL, FREE_SPACE_SYMBOL -> findFirstSignificantSymbol(nextPositionToCheck, direction, warehouse)
 					else -> continue
@@ -65,8 +65,8 @@ private fun findFirstSignificantSymbol(position: Coordinate, direction: Directio
 		}
 		
 		Direction.LEFT -> {
-			for (i in position.second - 1 downTo 0) {
-				val nextPositionToCheck = Coordinate(position.first, i)
+			for (i in position.y - 1 downTo 0) {
+				val nextPositionToCheck = Coordinate(position.x, i)
 				return when (warehouse[nextPositionToCheck]) {
 					WALL_SYMBOL, FREE_SPACE_SYMBOL -> nextPositionToCheck
 					else -> continue
@@ -75,8 +75,8 @@ private fun findFirstSignificantSymbol(position: Coordinate, direction: Directio
 		}
 		
 		Direction.RIGHT -> {
-			for (i in position.second + 1 until (warehouseSize * colMultiplicator)) {
-				val nextPositionToCheck = Coordinate(position.first, i)
+			for (i in position.y + 1 until (warehouseSize * colMultiplicator)) {
+				val nextPositionToCheck = Coordinate(position.x, i)
 				return when (warehouse[nextPositionToCheck]) {
 					WALL_SYMBOL, FREE_SPACE_SYMBOL -> nextPositionToCheck
 					else -> continue
@@ -96,20 +96,20 @@ private fun moveBoxes(warehouse: Warehouse, currentPosition: Coordinate, untilPo
 		
 		Direction.UP -> {
 			// TODO move all boxes up
-			for (i in untilPosition.first until currentPosition.first) {
-				val partOfTheBox = warehouse[Coordinate(i + 1, currentPosition.second)]!!
-				mutableWarehouse[Coordinate(i, currentPosition.second)] = mutableWarehouse[Coordinate(i + 1, currentPosition.second)]!!
+			for (i in untilPosition.x until currentPosition.x) {
+				val partOfTheBox = warehouse[Coordinate(i + 1, currentPosition.y)]!!
+				mutableWarehouse[Coordinate(i, currentPosition.y)] = mutableWarehouse[Coordinate(i + 1, currentPosition.y)]!!
 				when (partOfTheBox) {
 					BIG_BOX_SYMBOL_LEFT -> {
-						mutableWarehouse[Coordinate(i, currentPosition.second + 1)] =
-							mutableWarehouse[Coordinate(i + 1, currentPosition.second + 1)]!!
-						moveBoxes(mutableWarehouse, Coordinate(i, currentPosition.second + 1), untilPosition, direction)
+						mutableWarehouse[Coordinate(i, currentPosition.y + 1)] =
+							mutableWarehouse[Coordinate(i + 1, currentPosition.y + 1)]!!
+						moveBoxes(mutableWarehouse, Coordinate(i, currentPosition.y + 1), untilPosition, direction)
 					}
 					
 					BIG_BOX_SYMBOL_RIGHT -> {
-						mutableWarehouse[Coordinate(i, currentPosition.second - 1)] =
-							mutableWarehouse[Coordinate(i + 1, currentPosition.second - 1)]!!
-						moveBoxes(mutableWarehouse, Coordinate(i, currentPosition.second - 1), untilPosition, direction)
+						mutableWarehouse[Coordinate(i, currentPosition.y - 1)] =
+							mutableWarehouse[Coordinate(i + 1, currentPosition.y - 1)]!!
+						moveBoxes(mutableWarehouse, Coordinate(i, currentPosition.y - 1), untilPosition, direction)
 					}
 					else -> continue
 				}
@@ -118,21 +118,21 @@ private fun moveBoxes(warehouse: Warehouse, currentPosition: Coordinate, untilPo
 		
 		Direction.DOWN -> {
 			// TODO move all boxes down
-			for (i in currentPosition.first + 1..untilPosition.first) {
-				val partOfTheBox = warehouse[Coordinate(i, currentPosition.second)]!!
+			for (i in currentPosition.x + 1..untilPosition.x) {
+				val partOfTheBox = warehouse[Coordinate(i, currentPosition.y)]!!
 				when (partOfTheBox) {
 					BIG_BOX_SYMBOL_LEFT -> {
-						mutableWarehouse[Coordinate(i, currentPosition.second)] = BIG_BOX_SYMBOL_LEFT
+						mutableWarehouse[Coordinate(i, currentPosition.y)] = BIG_BOX_SYMBOL_LEFT
 						
-						val positionOfThePartOfTheBox = Coordinate(i, currentPosition.second + 1)
+						val positionOfThePartOfTheBox = Coordinate(i, currentPosition.y + 1)
 						mutableWarehouse[positionOfThePartOfTheBox] = BIG_BOX_SYMBOL_RIGHT
 						moveBoxes(mutableWarehouse, positionOfThePartOfTheBox, untilPosition, direction)
 					}
 					
 					BIG_BOX_SYMBOL_RIGHT -> {
-						mutableWarehouse[Coordinate(i, currentPosition.second)] = BIG_BOX_SYMBOL_LEFT
+						mutableWarehouse[Coordinate(i, currentPosition.y)] = BIG_BOX_SYMBOL_LEFT
 						
-						val positionOfThePartOfTheBox = Coordinate(i, currentPosition.second - 1)
+						val positionOfThePartOfTheBox = Coordinate(i, currentPosition.y - 1)
 						mutableWarehouse[positionOfThePartOfTheBox] = BIG_BOX_SYMBOL_RIGHT
 						moveBoxes(mutableWarehouse, positionOfThePartOfTheBox, untilPosition, direction)
 					}
@@ -142,14 +142,14 @@ private fun moveBoxes(warehouse: Warehouse, currentPosition: Coordinate, untilPo
 		}
 		
 		Direction.LEFT -> {
-			for (i in untilPosition.second until currentPosition.second) {
-				mutableWarehouse[Coordinate(currentPosition.first, i)] = mutableWarehouse[Coordinate(currentPosition.first, i + 1)]!!
+			for (i in untilPosition.y until currentPosition.y) {
+				mutableWarehouse[Coordinate(currentPosition.x, i)] = mutableWarehouse[Coordinate(currentPosition.x, i + 1)]!!
 			}
 		}
 		
 		Direction.RIGHT -> {
-			for (i in untilPosition.second downTo currentPosition.second + 1) {
-				mutableWarehouse[Coordinate(currentPosition.first, i)] = mutableWarehouse[Coordinate(currentPosition.first, i - 1)]!!
+			for (i in untilPosition.y downTo currentPosition.y + 1) {
+				mutableWarehouse[Coordinate(currentPosition.x, i)] = mutableWarehouse[Coordinate(currentPosition.x, i - 1)]!!
 			}
 		}
 	}

@@ -1,11 +1,13 @@
-package common
+package part2
+
+import common.*
 
 fun applyCurrentPosition(position: Coordinate, direction: Direction): Coordinate {
 	return when (direction) {
-		Direction.UP -> Pair(position.first - 1, position.second)
-		Direction.RIGHT -> Pair(position.first, position.second + 1)
-		Direction.DOWN -> Pair(position.first + 1, position.second)
-		Direction.LEFT -> Pair(position.first, position.second - 1)
+		Direction.UP -> Coordinate(position.x - 1, position.y)
+		Direction.RIGHT -> Coordinate(position.x, position.y + 1)
+		Direction.DOWN -> Coordinate(position.x + 1, position.y)
+		Direction.LEFT -> Coordinate(position.x, position.y - 1)
 	}
 }
 
@@ -20,10 +22,10 @@ fun isWall(position: Coordinate, direction: Direction, warehouse: Warehouse): Bo
 fun funIsObstacle(position: Coordinate, direction: Direction, warehouse: Warehouse, vararg symbols: Char): Boolean {
 	return symbols.contains(
 		when (direction) {
-			Direction.UP -> warehouse[Pair(position.first - 1, position.second)]
-			Direction.RIGHT -> warehouse[Pair(position.first, position.second + 1)]
-			Direction.DOWN -> warehouse[Pair(position.first + 1, position.second)]
-			Direction.LEFT -> warehouse[Pair(position.first, position.second - 1)]
+			Direction.UP -> warehouse[Coordinate(position.x - 1, position.y)]
+			Direction.RIGHT -> warehouse[Coordinate(position.x, position.y + 1)]
+			Direction.DOWN -> warehouse[Coordinate(position.x + 1, position.y)]
+			Direction.LEFT -> warehouse[Coordinate(position.x, position.y - 1)]
 		}!!
 	)
 }

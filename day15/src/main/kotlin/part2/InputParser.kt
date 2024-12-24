@@ -75,7 +75,7 @@ fun printWarehouse(warehouse: Warehouse, curentPosition: Coordinate) {
 	
 	mutableWarehouse[curentPosition] = CURRENT_POSITION
 	mutableWarehouse.entries.forEach { (key, value) ->
-		list[key.first][key.second] = value
+		list[key.x][key.y] = value
 	}
 	
 	list.forEach { lines ->
