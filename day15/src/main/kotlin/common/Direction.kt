@@ -11,6 +11,6 @@ enum class Direction(val symbol: Char) {
 	RIGHT('>');
 	
 	companion object {
-		fun from(symbol: Char): Direction? = entries.find { it.symbol == symbol }
+		fun from(symbol: Char): Direction = entries.find { it.symbol == symbol } ?: throw Exception("[$symbol] is not a valid direction")
 	}
 }

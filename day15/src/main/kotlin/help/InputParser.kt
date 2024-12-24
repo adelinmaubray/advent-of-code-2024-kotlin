@@ -1,4 +1,4 @@
-package part2
+package help
 
 import common.*
 import java.io.File
@@ -15,8 +15,8 @@ fun parseInput(isExample: Boolean = false): Pair<Warehouse, Moves> {
 		.forEachIndexed { rowIndex, row ->
 			row.forEachIndexed { colIndex, char ->
 				
-				val position1 = Position(rowIndex, 2 * colIndex)
-				val position2 = Position(rowIndex, 2 * colIndex + 1)
+				val position1 = Position(2 * colIndex, rowIndex)
+				val position2 = Position(2 * colIndex + 1, rowIndex)
 				
 				when (char) {
 					WALL_SYMBOL -> {
@@ -60,6 +60,31 @@ fun removeCurrentPosition(warehouse: Warehouse, currentPosition: Position): Ware
 	return mutableWarehouse
 }
 
+fun getBoxesPosition(warehouse: Warehouse): List<Box> {
+	val boxes = mutableListOf<Box>()
+	val processedPositions = mutableSetOf<Position>()
+	
+	// Parcourir toutes les positions de la grille
+	for ((position, cell) in warehouse) {
+		// Si la position a déjà été traitée ou n'est pas une boîte, on passe
+		if (position in processedPositions || cell != '[') continue
+		
+		// Vérifier la position à droite
+		val rightPosition = Position(position.x + 1, position.y)
+		
+		println("$position: ${warehouse[position]} -> $rightPosition: ${warehouse[rightPosition]}")
+		
+		if (warehouse[rightPosition] == ']') {
+			// On a trouvé une boîte horizontale
+			boxes.add(Box(position, rightPosition))
+			processedPositions.add(position)
+			processedPositions.add(rightPosition)
+		}
+	}
+	
+	return boxes
+}
+
 fun printWarehouse(warehouse: Warehouse, curentPosition: Position) {
 	
 	val rowMultiplicator = 2.toFloat() / 3.toFloat()
@@ -67,8 +92,8 @@ fun printWarehouse(warehouse: Warehouse, curentPosition: Position) {
 	val mutableWarehouse = warehouse.toMutableMap()
 	
 	val size = ceil((sqrt(warehouse.size.toFloat()) * rowMultiplicator)).toInt()
-	val list = MutableList(size) {
-		MutableList(size * colMultiplicator) {
+	val list = MutableList(size * colMultiplicator) {
+		MutableList(size) {
 			'.'
 		}
 	}
@@ -78,11 +103,11 @@ fun printWarehouse(warehouse: Warehouse, curentPosition: Position) {
 		list[key.x][key.y] = value
 	}
 	
-	list.forEach { lines ->
-		lines.forEach(::print)
+	(0..list[0].lastIndex).forEach { rowIndex ->
+		(0..list.lastIndex).forEach { colIndex ->
+			print(list[colIndex][rowIndex])
+		}
 		println()
 	}
-	
-	println()
 	println()
 }
