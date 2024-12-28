@@ -1,4 +1,7 @@
-package common
+package part1
+
+import common.Device
+import common.Operator
 
 fun runProgram(device: Device): List<Int> {
 	

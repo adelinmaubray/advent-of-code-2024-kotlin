@@ -1,7 +1,6 @@
 package part1
 
 import common.getDeviceInitialState
-import common.runProgram
 
 fun main() {
 
