@@ -7,10 +7,10 @@ import common.typeOnNumericKeypad
 fun main() {
 	
 	val example = listOf(
-//		"029A",
-//		"980A",
-//		"179A",
-//		"456A",
+		"029A",
+		"980A",
+		"179A",
+		"456A",
 		"379A"
 	)
 	
@@ -40,4 +40,6 @@ fun main() {
 //	println(sum)
 	
 	// 180'989 too high
+	// 170'508 too high
+	// 169'912 too high
 }
